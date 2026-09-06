@@ -14,3 +14,7 @@ PRODUCT_NAME := twrp_taro
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := taro
 PRODUCT_MANUFACTURER := Xiaomi
+
+# {statusicons_align} in the theme: without it the clock and battery text sit
+# at the top edge of the status bar.
+TW_STATUS_ICONS_ALIGN := center
