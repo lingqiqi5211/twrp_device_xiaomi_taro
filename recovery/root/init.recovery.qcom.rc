@@ -44,6 +44,11 @@ on init
     # nothing, so unload it here, before recovery loads the vendor_dlkm copy.
     exec u:r:recovery:s0 root root -- /system/bin/sh /system/bin/beforemodules.sh
 
+    # Names the running device and sets ro.twrp.device_version, which TWRP
+    # reads once at startup. The USB product string in init.recovery.usb.rc
+    # expands ro.product.model at "on fs".
+    exec u:r:recovery:s0 root root -- /system/bin/sh /system/bin/variant-script.sh
+
     # qseecomd needs the UFS by-name links before its RPMB listener starts.
     # Starting it only after the link exists also makes the security HALs
     # available before recovery attempts metadata decryption.

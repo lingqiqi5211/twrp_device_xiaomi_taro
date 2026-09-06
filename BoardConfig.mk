@@ -182,7 +182,7 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libdebuggerd_client.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libprocinfo.so
 
-TW_DEVICE_VERSION := taro-for-lingqiqi
+TW_DEVICE_VERSION := taro-by-qiqi
 ifeq ($(TARGET_PRODUCT),twrp_taro_wifi)
 # Gates the WLAN GUI and network helpers. twrp_taro_wifi.mk installs the two
 # supplicant binaries from TWRP's own external/wpa_supplicant_8 fork.

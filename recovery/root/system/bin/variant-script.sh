@@ -1,7 +1,8 @@
 #!/system/bin/sh
 
-# Startup hook TWRP runs from /system/bin/runatboot.sh. It names the running
-# device and installs the ZIP64-safe unzip front-end.
+# init execs this from init.recovery.qcom.rc before the recovery service starts.
+# It names the running device, sets the version suffix that TWRP reads once at
+# startup, and installs the ZIP64-safe unzip front-end.
 #
 # One image serves the whole family, so the identity comes from the hardware
 # rather than the build. ro.boot.hardware.sku is the codename the bootloader
@@ -78,7 +79,8 @@ set_device_name() {
 set_identity() {
     resetprop "ro.product.brand" "$1"
     resetprop "ro.product.model" "$2"
-    echo "$2" > /config/usb_gadget/g1/strings/0x409/product
+    # TWRP appends this to its version string: 3.7.1_16-<model>-by-qiqi.
+    resetprop "ro.twrp.device_version" "$(echo "$2" | tr ' ' '_')-by-qiqi"
     echo "I:identity: ${sku:-unknown sku} -> $1 $2" >> "${LOGF}"
 }
 
