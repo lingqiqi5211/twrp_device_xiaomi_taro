@@ -82,6 +82,14 @@ clear_network_state() {
     /system/bin/chmod 0644 /etc/resolv.conf
 }
 
+wait_for_iface() {
+    attempt=0
+    while [ ! -e "/sys/class/net/${iface}" ] && [ "${attempt}" -lt "$1" ]; do
+        attempt=$((attempt + 1))
+        /system/bin/sleep 0.1
+    done
+}
+
 start_wifi() {
     slot_suffix="$(/system/bin/getprop ro.boot.slot_suffix)"
     if ! is_mounted /firmware; then
@@ -108,15 +116,20 @@ start_wifi() {
         # one here. Either way the interface is what decides.
         load_module cfg80211 cfg80211.ko || true
         insmod_first 'qca_cld3_*.ko' || true
+        # The qca6490 driver creates the interface only after userspace writes ON
+        # to /dev/wlan, as the vendor HAL does at boot. The write returns once the
+        # driver is up. The first load after boot also calibrates the firmware,
+        # which took about six seconds on marble, so wait well past that.
         attempt=0
-        while [ ! -e "/sys/class/net/${iface}" ]; do
+        while [ ! -c /dev/wlan ] && [ "${attempt}" -lt 50 ]; do
             attempt=$((attempt + 1))
-            if [ "${attempt}" -ge 50 ]; then
-                log_message "no WLAN driver produced ${iface}"
-                return 1
-            fi
             /system/bin/sleep 0.1
         done
+        if [ ! -e "/sys/class/net/${iface}" ] && [ -c /dev/wlan ]; then
+            echo ON > /dev/wlan 2>/dev/null || true
+        fi
+        wait_for_iface 150
+        [ -e "/sys/class/net/${iface}" ] || log_message "no WLAN driver produced ${iface}, trying the HAL"
     fi
 
     /system/bin/setprop wifi.interface "${iface}"
