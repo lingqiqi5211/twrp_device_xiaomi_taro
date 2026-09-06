@@ -184,16 +184,12 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
 
 TW_DEVICE_VERSION := taro-for-lingqiqi
 ifeq ($(TARGET_PRODUCT),twrp_taro_wifi)
-# Gates the WLAN GUI and network helpers. The two supplicant binaries it needs
-# come from TWRP's own external/wpa_supplicant_8 fork, which its manifest
-# already selects, and install themselves into the ramdisk.
+# Gates the WLAN GUI and network helpers. twrp_taro_wifi.mk installs the two
+# supplicant binaries from TWRP's own external/wpa_supplicant_8 fork.
 TW_INCLUDE_WIFI := true
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hardware.wifi@1.0 \
-    android.hardware.security.keymint-V1-ndk \
-    android.system.keystore2-V1-ndk \
     dhcpdbg \
-    libkeystore-engine-wifi-hidl \
     libnl \
     libssl \
     taro_wifi_halctl
