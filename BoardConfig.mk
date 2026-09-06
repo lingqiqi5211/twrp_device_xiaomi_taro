@@ -143,7 +143,6 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 # costs nothing here.
 TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko goodix_core.ko fts_touch_spi.ko focaltech_fts.ko synaptics_dsx.ko nt36xxx-i2c.ko nt36xxx-spi.ko xiaomi_touch.ko"
 TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
-TW_VENDOR_MODULES_PREPARE_SCRIPT := "/system/bin/beforemodules.sh"
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.fingerprint=ro.vendor.build.fingerprint;ro.build.version.incremental"

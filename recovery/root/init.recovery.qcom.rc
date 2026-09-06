@@ -39,6 +39,11 @@ on early-fs
     write /proc/sys/walt/sched_lib_mask_force 255
 
 on init
+    # TWRP skips a requested module whose name is already in /proc/modules. The
+    # vendor_boot touch driver loads on a kernel it was not built for and binds
+    # nothing, so unload it here, before recovery loads the vendor_dlkm copy.
+    exec u:r:recovery:s0 root root -- /system/bin/sh /system/bin/beforemodules.sh
+
     # qseecomd needs the UFS by-name links before its RPMB listener starts.
     # Starting it only after the link exists also makes the security HALs
     # available before recovery attempts metadata decryption.

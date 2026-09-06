@@ -1,7 +1,8 @@
 #!/system/bin/sh
 
 # Drop a touch driver that registered but never bound to anything, so TWRP can
-# load the vendor_dlkm copy that matches the running kernel. Ask the module
+# load the vendor_dlkm copy that matches the running kernel. init runs this
+# from init.recovery.qcom.rc before the recovery service starts. Ask the module
 # whether it holds a device rather than probing one fixed path: the panel is a
 # platform device on some members of this family and an SPI device on others,
 # and a module can register a driver on both buses.
