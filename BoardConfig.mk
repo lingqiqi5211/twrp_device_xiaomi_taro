@@ -126,7 +126,6 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
 
 # Display / input
 TW_THEME := portrait_hdpi
-TW_CUSTOM_CLOCK_POS := 620
 TW_DEFAULT_LANGUAGE := zh_CN
 TW_EXTRA_LANGUAGES := true
 # The panel is brought up at 60 Hz by the kernel and TWRP cannot re-initialise
@@ -135,7 +134,6 @@ TW_FRAMERATE := 60
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 4095
-TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone25/temp"
 TW_NO_SCREEN_BLANK := true
 
 # Device services / modules
