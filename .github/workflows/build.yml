@@ -298,6 +298,7 @@ jobs:
               for file in \
                 "${root}/system/bin/taro-wifi-control" \
                 "${root}/system/bin/taro-wifi-dhcp" \
+                "${root}/system/bin/dhcpcd" \
                 "${root}/system/bin/wpa_cli" \
                 "${root}/system/bin/wpa_supplicant" \
                 "${root}/system/bin/taro_wifi_halctl" \
@@ -320,6 +321,7 @@ jobs:
                 "${root}/system/bin/dhcpdbg" \
                 "${root}/system/bin/taro-wifi-control" \
                 "${root}/system/bin/taro-wifi-dhcp" \
+                "${root}/system/bin/dhcpcd" \
                 "${root}/system/bin/wpa_cli" \
                 "${root}/system/bin/wpa_supplicant" \
                 "${root}/system/bin/taro_wifi_halctl" \

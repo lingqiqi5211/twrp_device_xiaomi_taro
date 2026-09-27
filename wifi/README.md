@@ -10,7 +10,10 @@ Wi-Fi libraries and firmware configuration, kernel modules, a recovery-only
 
 ## Runtime Behavior
 
-- Starts the vendor Wi-Fi HAL and `wpa_supplicant` when Wi-Fi is enabled.
+- Starts the vendor Wi-Fi HAL and `wpa_supplicant` when Wi-Fi is enabled. The
+  init service is named `wpa_supplicant` and prepares the runtime itself, so
+  the recovery UI can start and stop it with `ctl.start`/`ctl.stop`. The UI
+  then runs the `dhcpcd` that TWRP installs with `TW_INCLUDE_WIFI`.
 - Uses `wlan0` and a recovery-local control socket under
   `/tmp/recovery/sockets`.
 - Publishes the active address, gateway and DNS values through recovery network

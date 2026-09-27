@@ -90,7 +90,8 @@ wait_for_iface() {
     done
 }
 
-start_wifi() {
+# Runs twice on the legacy path, so every step must tolerate being done already.
+prepare_wifi() {
     slot_suffix="$(/system/bin/getprop ro.boot.slot_suffix)"
     if ! is_mounted /firmware; then
         /system/bin/mkdir -p /firmware
@@ -159,14 +160,29 @@ start_wifi() {
     /system/bin/mkdir -p /tmp/recovery/sockets
     /system/bin/chown wifi:wifi /tmp/recovery/sockets
     /system/bin/chmod 0770 /tmp/recovery/sockets
+    # Created 0700 by recovery; the supplicant makes its socket as wifi.
+    /system/bin/chmod 0711 /tmp/recovery
 
     # TWRP's wpa_cli drops to the wifi user and puts its client socket straight
     # in /tmp, which the ramdisk leaves root:shell 0775. Sticky bit kept so one
     # user cannot remove another's socket.
     /system/bin/chmod 1777 /tmp
-    if [ "$(/system/bin/getprop init.svc.wpa_supplicant_recovery)" != "running" ]; then
+}
+
+# exec, so init tracks the supplicant itself and ctl.stop reaches it.
+run_supplicant() {
+    prepare_wifi
+    /system/bin/rm -f "${ctrl_socket}"
+    log_message "Wi-Fi runtime ready on ${iface}"
+    exec /system/bin/wpa_supplicant -Dnl80211 "-i${iface}" \
+        -c/vendor/etc/wifi/taro_recovery_wpa_supplicant.conf -O/tmp/recovery/sockets
+}
+
+start_wifi() {
+    prepare_wifi
+    if [ "$(/system/bin/getprop init.svc.wpa_supplicant)" != "running" ]; then
         /system/bin/rm -f "${ctrl_socket}"
-        /system/bin/start wpa_supplicant_recovery
+        /system/bin/start wpa_supplicant
         attempt=0
         while [ ! -S "${ctrl_socket}" ]; do
             attempt=$((attempt + 1))
@@ -182,7 +198,7 @@ start_wifi() {
 }
 
 stop_wifi() {
-    /system/bin/stop wpa_supplicant_recovery || true
+    /system/bin/stop wpa_supplicant || true
     if [ -e "/sys/class/net/${iface}" ]; then
         /system/bin/ifconfig "${iface}" down || true
     fi
@@ -192,6 +208,9 @@ stop_wifi() {
 }
 
 case "${1:-}" in
+    run)
+        run_supplicant
+        ;;
     start)
         start_wifi
         ;;
@@ -199,7 +218,7 @@ case "${1:-}" in
         stop_wifi
         ;;
     *)
-        echo "usage: taro-wifi-control {start|stop}" >&2
+        echo "usage: taro-wifi-control {run|start|stop}" >&2
         exit 2
         ;;
 esac

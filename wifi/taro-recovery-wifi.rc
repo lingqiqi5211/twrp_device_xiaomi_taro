@@ -13,10 +13,22 @@ service vendor.wifi_hal_legacy /vendor/bin/hw/android.hardware.wifi@1.0-service
     disabled
     oneshot
 
-service wpa_supplicant_recovery /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/vendor/etc/wifi/taro_recovery_wpa_supplicant.conf -O/tmp/recovery/sockets
+# The recovery UI starts and stops this by name.
+service wpa_supplicant /system/bin/taro-wifi-control run
     class main
     user root
     group root wifi inet net_raw net_admin
+    seclabel u:r:recovery:s0
+    disabled
+    oneshot
+
+# ctl.stop leaves the interface up and the old address published.
+on property:init.svc.wpa_supplicant=stopped
+    start taro-wifi-cleanup
+
+service taro-wifi-cleanup /system/bin/taro-wifi-control stop
+    user root
+    group root wifi inet net_admin
     seclabel u:r:recovery:s0
     disabled
     oneshot
