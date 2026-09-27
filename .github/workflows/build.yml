@@ -207,6 +207,9 @@ jobs:
             "${root}/system/lib64/libtwrpminui.so"
           test -x "${root}/system/bin/beforemodules.sh"
           test -x "${root}/system/bin/waitforbattery.sh"
+          test -x "${root}/system/bin/hw/taro_health"
+          test -f "${root}/system/etc/vintf/manifest/taro-health.xml"
+          test ! -e "${root}/vendor/lib64/hw/android.hardware.health@2.0-impl-2.1-qti.so"
 
           # Copied out of the APEX by RECOVERY_BINARY_SOURCE_FILES, which has no
           # dependency on it being staged, so it goes missing without a word.

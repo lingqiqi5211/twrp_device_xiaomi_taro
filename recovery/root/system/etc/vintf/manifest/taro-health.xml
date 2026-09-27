@@ -1,0 +1,8 @@
+<!-- Recovery's servicemanager reads only here; type="device" would break libvintf. -->
+<manifest version="1.0" type="framework">
+    <hal format="aidl">
+        <name>android.hardware.health</name>
+        <version>4</version>
+        <fqname>IHealth/default</fqname>
+    </hal>
+</manifest>

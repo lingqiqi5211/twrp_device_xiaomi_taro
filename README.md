@@ -30,7 +30,8 @@ vendor modules and device-specific files.
 - TWRP 16 recovery userspace based on Android 16/API 36 sources
 - arm64 A/B recovery with dynamic-partition and fastbootd support
 - File-based encryption and metadata encryption using fscrypt policy v2
-- QTI Keymaster, KeyMint, Gatekeeper, boot-control and health services
+- QTI Keymaster, KeyMint, Gatekeeper and boot-control services, and the AOSP
+  AIDL health service
 - ADB, MTP, sideload, USB OTG and recovery partition tools
 - EROFS logical partitions and Android Verified Boot support
 - Runtime device identification for regional Xiaomi, Redmi and POCO models

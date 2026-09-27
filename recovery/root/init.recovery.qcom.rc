@@ -89,8 +89,17 @@ on property:twrp.battery.ready=true
     # Keep firmware mounted until the ADSP has created the battery supply.
     # The helper also retries the firmware unmount after publishing readiness,
     # because the kernel can retain a firmware file briefly after ADSP starts.
-    start health-hal-2-1
+    start taro-health
     start batterysecret
+
+# Reads the battery paths once at start, so it waits for the supply.
+service taro-health /system/bin/hw/taro_health
+    user system
+    group system
+    capabilities WAKE_ALARM BLOCK_SUSPEND
+    file /dev/kmsg w
+    disabled
+    seclabel u:r:recovery:s0
 
 service twrp-wait-for-battery /system/bin/sh /system/bin/waitforbattery.sh
     class core

@@ -66,6 +66,7 @@ for stale_file in \
     recovery/root/system/lib64/libusbhost.so \
     recovery/root/system/lib64/libusbhost_twrp.so \
     recovery/root/vendor/etc/vintf/manifest/vendor.qti.hardware.vibrator.service.xml \
+    recovery/root/vendor/lib64/hw/android.hardware.health@2.0-impl-2.1-qti.so \
     recovery/root/vendor/lib64/libaachaptics.so \
     recovery/root/vendor/lib64/libqtivibratoreffect.xiaomi.so \
     recovery/root/vendor/lib64/libqtivibratoreffectoffload.so \

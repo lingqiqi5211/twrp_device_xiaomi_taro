@@ -5,6 +5,19 @@ soong_namespace {
 }
 
 cc_binary {
+    name: "taro_health",
+    recovery: true,
+    relative_install_path: "hw",
+    srcs: ["health/main.cpp"],
+    defaults: ["libhealth_aidl_impl_user"],
+    static_libs: ["libhealth_aidl_impl"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
+
+cc_binary {
     name: "taro_wifi_halctl",
     srcs: ["wifi/halctl.cpp"],
     shared_libs: [

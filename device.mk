@@ -32,7 +32,7 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # Recovery runtime
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-service \
-    android.hardware.health@2.1-service \
+    taro_health \
     android.hardware.gatekeeper@1.0 \
     android.hardware.keymaster@4.0 \
     android.hardware.keymaster@4.1 \
