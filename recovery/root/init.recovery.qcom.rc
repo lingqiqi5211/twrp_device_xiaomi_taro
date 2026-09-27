@@ -55,6 +55,15 @@ on init
     wait /dev/block/platform/soc/${ro.boot.bootdevice} 10
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     wait /dev/block/bootdevice/by-name/ssd 10
+
+    # Before qseecomd. Holds TWRP's settings; a bind survives TWRP's unmounts.
+    mkdir /persist 0771 root root
+    mkdir /mnt/vendor 0775 shell system
+    mkdir /mnt/vendor/persist 0775 shell system
+    wait /dev/block/bootdevice/by-name/persist 10
+    mount ext4 /dev/block/bootdevice/by-name/persist /persist noatime nosuid nodev barrier=1
+    mount none /persist /mnt/vendor/persist bind
+
     start vendor.qseecomd
 
 on fs
