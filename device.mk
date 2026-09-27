@@ -70,7 +70,8 @@ PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(DEVICE_PATH)/security/otacert
 
 PRODUCT_SYSTEM_PROPERTIES += \
-    persist.sys.fuse.passthrough.enable=true
+    persist.sys.fuse.passthrough.enable=true \
+    twrp.drm.fast_mode=true
 
 ifeq ($(TARGET_PRODUCT),twrp_taro_wifi)
 $(call inherit-product, $(DEVICE_PATH)/wifi/wifi.mk)

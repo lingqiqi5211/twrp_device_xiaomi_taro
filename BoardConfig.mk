@@ -128,9 +128,8 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
 TW_THEME := portrait_hdpi
 TW_DEFAULT_LANGUAGE := zh_CN
 TW_EXTRA_LANGUAGES := true
-# The panel is brought up at 60 Hz by the kernel and TWRP cannot re-initialise
-# it for another mode, so pacing the GUI to anything else only drops frames.
-TW_FRAMERATE := 60
+# Relies on twrp.drm.fast_mode; the panel boots at 60 Hz.
+TW_FRAMERATE := 120
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 4095
