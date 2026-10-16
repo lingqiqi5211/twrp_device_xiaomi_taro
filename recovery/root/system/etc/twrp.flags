@@ -31,6 +31,3 @@
 /efs2           emmc    /dev/block/bootdevice/by-name/modemst2                              flags=backup;subpartitionof=/efs1
 /efsc           emmc    /dev/block/bootdevice/by-name/fsc                                   flags=backup;subpartitionof=/efs1
 /efsg           emmc    /dev/block/bootdevice/by-name/fsg                                   flags=backup;subpartitionof=/efs1
-
-# Removable storage
-/storage        auto    /data/media/0                                                       flags=backup=1;display="Internal Storage";usermrf;fsflags="utf8";removable
