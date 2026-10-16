@@ -73,6 +73,17 @@ on fs
     chmod 0664 /dev/ion
     chown system system /dev/ion
 
+# These Recovery properties are not exported to vendor init triggers.
+on property:twrp.device.runtime.ready=true && property:twrp.modules.loaded=true && property:twrp.haptics.kind=xiaomi
+    start twrp-vibrator-feature
+    start twrp-vibrator-alias
+
+on property:twrp.device.runtime.ready=true && property:twrp.modules.loaded=true
+    start twrp-check-thp
+
+on property:twrp.modules.loaded=true && property:twrp.touch.thp=true
+    start touch_report
+
 on property:twrp.modules.loaded=true
     # Mount firmware before starting the ADSP battery path.
     mkdir /firmware 0755 root root

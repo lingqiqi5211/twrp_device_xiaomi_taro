@@ -1,0 +1,11 @@
+<manifest version="4.0" type="framework">
+    <hal format="aidl">
+        <name>android.hardware.vibrator</name>
+        <version>1</version>
+        <interface>
+            <name>IVibrator</name>
+            <instance>default</instance>
+            <instance>vibratorfeature</instance>
+        </interface>
+    </hal>
+</manifest>

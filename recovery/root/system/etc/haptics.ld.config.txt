@@ -1,0 +1,12 @@
+# Only the optional RAM-cached ROM services use this configuration.
+dir.hal = /tmp/device-runtime/haptics/bin
+
+[hal]
+additional.namespaces = platform
+namespace.default.isolated = true
+namespace.default.search.paths = /tmp/device-runtime/haptics/lib64
+namespace.default.links = platform
+namespace.default.link.platform.shared_libs = libbinder_ndk.so:libcgrouprc.so:liblog.so:libc.so:libm.so:libdl.so:libdl_android.so:ld-android.so
+
+namespace.platform.isolated = true
+namespace.platform.search.paths = /tmp/device-runtime/haptics/platform:/system/lib64

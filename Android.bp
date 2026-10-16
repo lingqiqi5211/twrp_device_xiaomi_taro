@@ -18,6 +18,17 @@ cc_binary {
 }
 
 cc_binary {
+    name: "taro_haptics_launcher",
+    recovery: true,
+    srcs: ["haptics/launcher.cpp"],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+}
+
+cc_binary {
     name: "taro_wifi_halctl",
     srcs: ["wifi/halctl.cpp"],
     shared_libs: [

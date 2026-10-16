@@ -134,6 +134,8 @@ TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 4095
 TW_NO_SCREEN_BLANK := true
+# Prefer the ROM's standard AIDL vibrator; minui falls back to kernel FF.
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 
 # Device services / modules
 TW_EXCLUDE_DEFAULT_USB_INIT := true
@@ -149,6 +151,9 @@ TW_OVERRIDE_SYSTEM_PROPS := \
 # Tools
 TW_ENABLE_ALL_PARTITION_TOOLS := true
 TW_INCLUDE_7ZA := true
+# Extract ext4 ROM VNDK APEX payloads into RAM without mounting them.
+TARGET_RECOVERY_DEVICE_MODULES += debugfs_static
+RECOVERY_BINARY_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/debugfs_static
 TW_INCLUDE_FASTBOOTD := true
 TW_INCLUDE_LIBRESETPROP := true
 TW_INCLUDE_NTFS_3G := true

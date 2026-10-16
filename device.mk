@@ -33,6 +33,7 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-service \
     taro_health \
+    taro_haptics_launcher \
     android.hardware.gatekeeper@1.0 \
     android.hardware.keymaster@4.0 \
     android.hardware.keymaster@4.1 \

@@ -1,0 +1,20 @@
+# Optional ROM HALs are run from RAM; a failed service leaves kernel FF usable.
+service twrp-vibrator-feature /system/bin/sh /system/bin/start-device-haptics.sh feature
+    interface aidl android.hardware.vibrator.IVibrator/vibratorfeature
+    class hal
+    # The launcher needs root only to create its private mount namespace.
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service twrp-vibrator-alias /system/bin/sh /system/bin/start-device-haptics.sh alias
+    interface aidl android.hardware.vibrator.IVibrator/default
+    class hal
+    # The launcher drops to system before executing the cached HAL.
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
