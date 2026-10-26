@@ -12,7 +12,7 @@ service twrp-check-thp /system/bin/sh /system/bin/start-touch-report.sh
     oneshot
     seclabel u:r:recovery:s0
 
-service touch_report /vendor/bin/touch_report
+service touch_report /system/bin/sh /system/bin/run-touch-report.sh
     class hal
     user root
     group root uhid input
